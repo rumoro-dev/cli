@@ -7,6 +7,6 @@ export default defineConfig({
   clean: true,
   target: "node22",
   banner: { js: "#!/usr/bin/env node" },
-  // The SDK is bundled in, as the reference's CLI does: commander is the only runtime dependency.
+  // The SDK is bundled in, so commander is the only runtime dependency.
   noExternal: ["@rumoro-dev/sdk"],
 });

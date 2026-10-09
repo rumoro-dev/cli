@@ -4,44 +4,44 @@
 [![license](https://img.shields.io/npm/l/@rumoro-dev/cli)](./LICENSE)
 [![docs](https://img.shields.io/badge/docs-docs.rumoro.dev%2Fcli-blue)](https://docs.rumoro.dev/cli)
 
-`rumoro` puts the [Rumoro API](https://docs.rumoro.dev) on the command line. Every endpoint is a `noun:verb` command generated from the OpenAPI document, and there is a live mentions feed and an MCP helper. Rumoro watches Reddit, X, Hacker News, GitHub, Bluesky, LinkedIn, Stack Overflow, DEV, YouTube, TikTok, Instagram and news for your product, your competitors and your topics, and scores every mention for relevance, sentiment and intent. Requires Node 22+.
+The `rumoro` command gives you [Rumoro](https://docs.rumoro.dev) in your terminal: every API endpoint as a `noun:verb` command, a live feed of new mentions, and a helper that prints MCP settings. Rumoro picks up posts about your product, your competitors and your market on Reddit, X, Hacker News, GitHub, Bluesky, LinkedIn, Stack Overflow, DEV, YouTube, TikTok, Instagram and news, and rates each for relevance, sentiment and intent. Node 22 or later.
 
-## Installation
+## Install
 
 ```bash
 npm install -g @rumoro-dev/cli
-# or run it without installing
+# or try it without installing
 npx @rumoro-dev/cli --help
 ```
 
-## Quick start
+## Try it
 
 ```bash
-rumoro auth:login                                   # signs in through the browser and stores a key
-rumoro keywords:create --term "acme cloud" --kind brand --platforms hackernews,x
-rumoro mentions:search --relevant true --intent buy_intent --limit 20
-rumoro mentions:update mm_7f3a... --status done --note "replied 2026-10-03"
+rumoro auth:login                                   # sign in through the browser; the key is saved for you
+rumoro keywords:create --term "driftwood deploy" --kind brand --platforms hackernews,x
+rumoro mentions:search --relevant true --intent question --limit 20
+rumoro mentions:update mm_7f3a... --status done --note "answered in the thread"
 rumoro analytics:summary --range 7d --compare true
 rumoro mentions:watch --platform hackernews | jq -r '.post.url'
 ```
 
-Output is JSON: compact when piped, indented on a terminal, and `--table` renders lists as a table.
+Results print as JSON, compact when piped and indented in a terminal. Add `--table` to show a list as a table.
 
-## Authentication
+## Your API key
 
-There are three ways to supply a key, in order of precedence:
+The CLI looks for a key in this order:
 
 ```bash
-rumoro keywords:list --api-key ref_...    # one command
-export RUMORO_API_KEY=ref_...             # the shell
-rumoro auth:set --key ref_...             # stored for this machine; auth:login does this for you
+rumoro keywords:list --api-key ref_...    # for a single command
+export RUMORO_API_KEY=ref_...             # for the current shell
+rumoro auth:set --key ref_...             # saved on this machine (auth:login does this for you)
 ```
 
-`rumoro auth:login` opens the dashboard. You pick the workspace, and the dashboard mints a key named after your machine and hands it to the CLI on a loopback port (owners create keys; anyone else stores an owner's key with `auth:set`). The key is stored in `~/.rumoro/config.json` (mode 600; `RUMORO_CONFIG_DIR` moves it). `auth:check` shows which workspace the key belongs to and where it came from, and `auth:logout` removes it. `--api-url` or `RUMORO_API_URL` point the CLI at another deployment.
+`rumoro auth:login` opens the dashboard so you can choose a workspace; it then creates a key named after your machine and passes it back to the CLI over a local port. Only owners can create keys, so other members save an owner's key with `auth:set`. Keys are stored in `~/.rumoro/config.json` with mode 600 (set `RUMORO_CONFIG_DIR` to use another folder). `auth:check` tells you which workspace a key belongs to and where it was found; `auth:logout` deletes it. To use another deployment, pass `--api-url` or set `RUMORO_API_URL`.
 
 ## Commands
 
-Generated commands take every query parameter and body field as a flag. `--json '{...}'` sends a whole body (`-` reads stdin), and flags override its fields. Exports take `--out file.csv`.
+Every query parameter and body field is available as a flag. To send a whole body, use `--json '{...}'` (or `-` to read it from stdin); flags given alongside override its fields. Export commands write to a file with `--out file.csv`.
 
 | Group | Commands |
 | --- | --- |
@@ -65,43 +65,36 @@ Generated commands take every query parameter and body field as a flag. `--json 
 | `auth` | `login`, `set`, `check`, `logout`, `whoami` |
 | `mcp` | `config` |
 
-`rumoro <group>:<verb> --help` prints every flag with the description from the API reference.
+Run `rumoro <group>:<verb> --help` to see each flag with its description.
 
-## A live feed
+## Watching for new mentions
 
 ```bash
 rumoro mentions:watch --platform hackernews --intent question --interval 30
 ```
 
-This polls the API and prints each new mention as one JSON line, so it pipes into `jq`, a file, or anything that reads stdin. `--from-start` prints the current newest page first.
+The command polls the API and prints every new mention as a single line of JSON, ready to pipe into `jq`, a file or another program. Add `--from-start` to print the most recent page first.
 
-## MCP helpers
+## MCP
 
 ```bash
-rumoro mcp:config          # the configuration for Claude Code, Cursor, VS Code or a generic MCP client, with your key
+rumoro mcp:config          # settings for Claude Code, Cursor, VS Code or any MCP client, with your key filled in
 ```
 
-Or skip the CLI and add the server directly in Claude Code, which signs you in through the browser:
+You can also skip the CLI and add the server in Claude Code directly; it signs you in through the browser:
 
 ```bash
 claude mcp add --transport http rumoro https://mcp.rumoro.dev/mcp
 ```
 
-## Errors
+## Exit codes
 
-A non-2xx response prints the API's error envelope on stderr, `{ "error": { "code", "message", "requestId" } }`, and exits with 1. Usage errors and a missing key exit with 2.
+On an API error, the CLI writes the error object (`{ "error": { "code", "message", "requestId" } }`) to stderr and exits with 1. Invalid usage or a missing key exits with 2.
 
-## Requirements
+## Good to know
 
-- Node 22+
-- A Rumoro account (every account starts with $5.80 of credit, and no card is needed)
-
-## Links
-
-- [Documentation](https://docs.rumoro.dev)
-- [OpenAPI document](https://api.rumoro.dev/v1/openapi.json)
-- [Dashboard](https://app.rumoro.dev)
-- [TypeScript SDK](https://www.npmjs.com/package/@rumoro-dev/sdk)
+- Requires Node 22 or later and a Rumoro account. New accounts come with $5.80 of credit and don't need a card.
+- [Docs](https://docs.rumoro.dev) · [OpenAPI document](https://api.rumoro.dev/v1/openapi.json) · [Dashboard](https://app.rumoro.dev) · [TypeScript SDK](https://www.npmjs.com/package/@rumoro-dev/sdk)
 
 ## License
 
