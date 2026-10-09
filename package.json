@@ -1,0 +1,49 @@
+{
+  "name": "@rumoro-dev/cli",
+  "version": "0.1.2",
+  "description": "Command-line client for the Rumoro API: one command per endpoint, plus watch and MCP helpers.",
+  "license": "MIT",
+  "homepage": "https://docs.rumoro.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rumoro-dev/cli.git"
+  },
+  "keywords": [
+    "rumoro",
+    "social listening",
+    "brand monitoring",
+    "cli",
+    "mcp"
+  ],
+  "type": "module",
+  "bin": {
+    "rumoro": "dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "generate": "node scripts/generate-operations.mjs",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test test/*.test.mjs",
+    "prepublishOnly": "npm run typecheck && npm run build && npm test"
+  },
+  "dependencies": {
+    "commander": "^15.0.0"
+  },
+  "devDependencies": {
+    "@rumoro-dev/sdk": "file:../sdk",
+    "@types/node": "^22.20.5",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  }
+}
