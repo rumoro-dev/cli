@@ -3,10 +3,13 @@
   "version": "0.1.2",
   "description": "Command-line client for the Rumoro API: one command per endpoint, plus watch and MCP helpers.",
   "license": "MIT",
-  "homepage": "https://docs.rumoro.dev",
+  "homepage": "https://docs.rumoro.dev/cli",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rumoro-dev/cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rumoro-dev/cli/issues"
   },
   "keywords": [
     "rumoro",
