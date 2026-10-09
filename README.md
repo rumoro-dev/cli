@@ -1,6 +1,10 @@
 # Rumoro CLI
 
-`rumoro` puts the [Rumoro API](https://docs.rumoro.dev) on the command line. Every endpoint is a `noun:verb` command generated from the OpenAPI document, and there is a live mentions feed and an MCP helper. Rumoro watches the places people talk about your product, your competitors and your topics, and scores every mention for relevance, sentiment and intent. Requires Node 22+.
+[![npm](https://img.shields.io/npm/v/@rumoro-dev/cli?label=npm)](https://www.npmjs.com/package/@rumoro-dev/cli)
+[![license](https://img.shields.io/npm/l/@rumoro-dev/cli)](./LICENSE)
+[![docs](https://img.shields.io/badge/docs-docs.rumoro.dev%2Fcli-blue)](https://docs.rumoro.dev/cli)
+
+`rumoro` puts the [Rumoro API](https://docs.rumoro.dev) on the command line. Every endpoint is a `noun:verb` command generated from the OpenAPI document, and there is a live mentions feed and an MCP helper. Rumoro watches Reddit, X, Hacker News, GitHub, Bluesky, LinkedIn, Stack Overflow, DEV, YouTube, TikTok, Instagram and news for your product, your competitors and your topics, and scores every mention for relevance, sentiment and intent. Requires Node 22+.
 
 ## Installation
 
