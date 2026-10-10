@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/npm/l/@rumoro-dev/cli)](./LICENSE)
 [![docs](https://img.shields.io/badge/docs-docs.rumoro.dev%2Fcli-blue)](https://docs.rumoro.dev/cli)
 
-The `rumoro` command gives you [Rumoro](https://docs.rumoro.dev) in your terminal: every API endpoint as a `noun:verb` command, a live feed of new mentions, and a helper that prints MCP settings. Rumoro picks up posts about your product, your competitors and your market on Reddit, X, Hacker News, GitHub, Bluesky, LinkedIn, Stack Overflow, DEV, YouTube, TikTok, Instagram and news, and rates each for relevance, sentiment and intent. Node 22 or later.
+The `rumoro` command puts the [Rumoro API](https://docs.rumoro.dev) in your terminal. Every endpoint is a `noun:verb` command, and there's a live feed of new mentions and a helper that prints MCP settings. Rumoro picks up posts about your product, your competitors and your market on Reddit, X, Hacker News, GitHub, Bluesky, LinkedIn, Stack Overflow, DEV, YouTube, TikTok, Instagram and news, and rates each for relevance, sentiment and intent.
 
 ## Install
 
@@ -18,7 +18,7 @@ npx @rumoro-dev/cli --help
 
 ```bash
 rumoro auth:login                                   # sign in through the browser; the key is saved for you
-rumoro keywords:create --term "driftwood deploy" --kind brand --platforms hackernews,x
+rumoro keywords:create --term "basil deploy" --kind brand --platforms hackernews,x
 rumoro mentions:search --relevant true --intent question --limit 20
 rumoro mentions:update mm_7f3a... --status done --note "answered in the thread"
 rumoro analytics:summary --range 7d --compare true
@@ -29,7 +29,7 @@ Results print as JSON, compact when piped and indented in a terminal. Add `--tab
 
 ## Your API key
 
-The CLI looks for a key in this order:
+The CLI looks for a key in this order.
 
 ```bash
 rumoro keywords:list --api-key ref_...    # for a single command
@@ -37,11 +37,11 @@ export RUMORO_API_KEY=ref_...             # for the current shell
 rumoro auth:set --key ref_...             # saved on this machine (auth:login does this for you)
 ```
 
-`rumoro auth:login` opens the dashboard so you can choose a workspace; it then creates a key named after your machine and passes it back to the CLI over a local port. Only owners can create keys, so other members save an owner's key with `auth:set`. Keys are stored in `~/.rumoro/config.json` with mode 600 (set `RUMORO_CONFIG_DIR` to use another folder). `auth:check` tells you which workspace a key belongs to and where it was found; `auth:logout` deletes it. To use another deployment, pass `--api-url` or set `RUMORO_API_URL`.
+`rumoro auth:login` sends you to the dashboard in your browser to pick a workspace. The dashboard creates a key labeled with your computer's name and hands it to the CLI over a local port. Only owners can create keys, so other members save an owner's key with `auth:set`. Keys are stored in `~/.rumoro/config.json` with mode 600 (set `RUMORO_CONFIG_DIR` to use another folder). `auth:check` tells you which workspace a key belongs to and where it was found; `auth:logout` deletes it. To use another deployment, pass `--api-url` or set `RUMORO_API_URL`.
 
 ## Commands
 
-Every query parameter and body field is available as a flag. To send a whole body, use `--json '{...}'` (or `-` to read it from stdin); flags given alongside override its fields. Export commands write to a file with `--out file.csv`.
+Each query parameter and body field has a matching flag. To send a whole body, use `--json '{...}'` (or `-` to read it from stdin); flags given alongside override its fields. Export commands write to a file with `--out file.csv`.
 
 | Group | Commands |
 | --- | --- |
@@ -81,7 +81,7 @@ The command polls the API and prints every new mention as a single line of JSON,
 rumoro mcp:config          # settings for Claude Code, Cursor, VS Code or any MCP client, with your key filled in
 ```
 
-You can also skip the CLI and add the server in Claude Code directly; it signs you in through the browser:
+Claude Code can also connect to the server directly, without the CLI, and signs you in through the browser.
 
 ```bash
 claude mcp add --transport http rumoro https://mcp.rumoro.dev/mcp
@@ -91,10 +91,17 @@ claude mcp add --transport http rumoro https://mcp.rumoro.dev/mcp
 
 On an API error, the CLI writes the error object (`{ "error": { "code", "message", "requestId" } }`) to stderr and exits with 1. Invalid usage or a missing key exits with 2.
 
-## Good to know
+## Requirements
 
-- Requires Node 22 or later and a Rumoro account. New accounts come with $5.80 of credit and don't need a card.
-- [Docs](https://docs.rumoro.dev) · [OpenAPI document](https://api.rumoro.dev/v1/openapi.json) · [Dashboard](https://app.rumoro.dev) · [TypeScript SDK](https://www.npmjs.com/package/@rumoro-dev/sdk)
+- Node 22 or later
+- A Rumoro account. New accounts come with $5.80 of credit and don't need a card.
+
+## Links
+
+- [Documentation](https://docs.rumoro.dev/cli)
+- [OpenAPI document](https://api.rumoro.dev/v1/openapi.json)
+- [Dashboard](https://app.rumoro.dev)
+- [TypeScript SDK](https://www.npmjs.com/package/@rumoro-dev/sdk)
 
 ## License
 

@@ -67,7 +67,7 @@ export const OPERATIONS: Operation[] = [
         {
           "name": "context",
           "type": "string",
-          "description": "Up to 300 characters the classifier reads for this keyword only, in addition to the company profile or the group's description. Say what the term means for you and what to ignore, for example \"Driftwood is our deploy tool, not beach wood.\" Null clears it.",
+          "description": "Up to 300 characters the classifier reads for this keyword only, in addition to the company profile or the group's description. Say what the term means for you and what to ignore, for example \"Basil is our deploy tool, not the herb.\" Null clears it.",
           "required": false,
           "nullable": true
         },
@@ -302,7 +302,7 @@ export const OPERATIONS: Operation[] = [
         {
           "name": "context",
           "type": "string",
-          "description": "Up to 300 characters the classifier reads for this keyword only, in addition to the company profile or the group's description. Say what the term means for you and what to ignore, for example \"Driftwood is our deploy tool, not beach wood.\" Null clears it.",
+          "description": "Up to 300 characters the classifier reads for this keyword only, in addition to the company profile or the group's description. Say what the term means for you and what to ignore, for example \"Basil is our deploy tool, not the herb.\" Null clears it.",
           "required": false,
           "nullable": true
         },

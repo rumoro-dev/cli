@@ -1,6 +1,6 @@
 # Contributing
 
-This repository is published from Rumoro's main codebase on every release, so pull requests can't be merged here directly. Issues are welcome and read. Open one with what you would change and we'll carry it over.
+This repository is published from Rumoro's main codebase on every release, so pull requests can't be merged here. Open an issue describing the change you'd like, and we'll make it in the main codebase.
 
-- Docs: https://docs.rumoro.dev
-- Support: markus@rumoro.dev
+- [Documentation](https://docs.rumoro.dev)
+- Support at markus@rumoro.dev
